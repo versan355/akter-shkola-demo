@@ -78,17 +78,32 @@
           ширина 100 %, прижата к низу, сверху добираем бумагой и растушёвкой ------ */
   .hero__img { overflow: hidden; }
   .hero__back { will-change: transform; }
-  .hero__back img { position: absolute; left: -9%; bottom: -16px; top: auto; width: 118%; height: auto; max-width: none; object-fit: fill; }
+  .hero__back img { position: absolute; left: -2%; bottom: -16px; top: auto; width: 104%; height: auto; max-width: none; object-fit: fill; }
   /* вариант В: три плана – зал (фон), обложка тетради-программы (средний), сценарий (передний) */
   .hero__mid, .hero__front { z-index: 2; }
-  .hero__cover { position: absolute; right: 4%; top: 25%; width: 17vw; aspect-ratio: 1 / 1.38; padding: 1.1rem; display: grid; align-content: end; background: var(--nb-cover); color: var(--nb-cover-ink); border-radius: 0 3px 3px 0; box-shadow: var(--v-e2), inset 0 0 0 1px rgb(255 255 255 / .08); transform: rotate(4deg); }
+  /* обложка и карточка висят на пустой стене над стулом и левее занавеса, чтобы не закрывать сцену */
+  .hero__cover { position: absolute; right: 32%; top: 12%; width: min(12vw, 19vh); aspect-ratio: 1 / 1.38; padding: 1.1rem; display: grid; align-content: end; background: var(--nb-cover); color: var(--nb-cover-ink); border-radius: 0 3px 3px 0; box-shadow: var(--v-e2), inset 0 0 0 1px rgb(255 255 255 / .08); transform: rotate(4deg); }
   .hero__cover::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 7px; background: linear-gradient(to right, rgb(0 0 0 / .28), transparent); }
-  .hero__card { position: absolute; right: 13%; bottom: 9%; width: 13vw; aspect-ratio: 3 / 4; margin: 0; border-radius: var(--v-radius); overflow: hidden; box-shadow: var(--v-e2); transform: rotate(-3deg); background: var(--v-surface); }
+  .hero__cover .cover__label { padding: var(--v-3); gap: .25em; }
+  .hero__cover .cover__label b { font-size: var(--v-t-base); }
+  .hero__cover .cover__label span:not(:first-of-type) { display: none; }
+  .hero__card { position: absolute; right: 20%; top: 13%; width: min(9vw, 14vh); aspect-ratio: 3 / 4; margin: 0; border-radius: var(--v-radius); overflow: hidden; box-shadow: var(--v-e2); transform: rotate(-3deg); background: var(--v-surface); }
   .hero__card img { width: 100%; height: 100%; object-fit: cover; }
   .hero__scrim { position: absolute; inset: 0; z-index: 2; pointer-events: none;
     background:
       linear-gradient(to bottom, rgb(246 243 236 / 1) 0%, rgb(246 243 236 / .9) 12%, rgb(246 243 236 / 0) 30%),
-      linear-gradient(to right, rgb(246 243 236 / .66) 0%, rgb(246 243 236 / .42) 32%, rgb(246 243 236 / .12) 48%, transparent 58%); }
+      linear-gradient(to right, rgb(246 243 236 / .3) 0%, rgb(246 243 236 / .3) 32%, rgb(246 243 236 / .1) 46%, transparent 54%); }
+  /* низкий широкий экран ноутбука: сцена на картинке выше, поэтому обложку и карточку делаем меньше и поднимаем */
+  @media (min-width: 861px) and (min-aspect-ratio: 19/10) {
+    .hero__cover { right: 41%; top: 12%; width: min(10vw, 18vh); }
+    .hero__card { top: 9%; width: min(8vw, 13vh); }
+  }
+  /* почти квадратный экран (4:3): картинка не достаёт до верха – растушёвку тянем ниже, чтобы не было резкого края */
+  @media (min-width: 861px) and (max-aspect-ratio: 3/2) {
+    .hero__scrim { background:
+      linear-gradient(to bottom, rgb(246 243 236 / 1) 0%, rgb(246 243 236 / .95) 22%, rgb(246 243 236 / 0) 44%),
+      linear-gradient(to right, rgb(246 243 236 / .3) 0%, rgb(246 243 236 / .3) 32%, rgb(246 243 236 / .1) 46%, transparent 54%); }
+  }
   .hero__copy { max-width: min(42rem, 50vw); bottom: 0; top: 0; display: flex; flex-direction: column; justify-content: center; padding-top: 3rem; }
   .hero__label { font-size: var(--v-t-sm); font-weight: 500; color: var(--v-ink-soft); margin-bottom: var(--v-4); }
   .hero__copy h1 { font-size: clamp(2.3rem, 1rem + 2.6vw, 3.5rem); line-height: 1; }
@@ -114,7 +129,7 @@
     .hero__cover .cover__label { padding: var(--v-2) var(--v-3); gap: .2em; }
     .hero__cover .cover__label b { font-size: var(--v-t-sm); }
     .hero__cover .cover__label span, .hero__cover .cover__brand { display: none; }
-    .hero__card { width: 24vw; right: var(--v-gutter); bottom: 7vh; }
+    .hero__card { width: 24vw; right: var(--v-gutter); top: auto; bottom: 7vh; }
     .hero__scrim { background: linear-gradient(to bottom, rgb(246 243 236 / 1) 0%, rgb(246 243 236 / .94) 42%, rgb(246 243 236 / .55) 56%, transparent 68%); }
     .hero__copy, .hero__turn { left: var(--v-gutter); right: var(--v-gutter); top: 4.4rem; bottom: auto; display: block; padding-top: 0; max-width: none; }
     .hero__label { margin-bottom: var(--v-3); }
