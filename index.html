@@ -127,6 +127,10 @@
     .tags { inset: auto var(--v-gutter) 6.5vh var(--v-gutter); display: flex; flex-wrap: wrap; gap: var(--v-2) var(--v-3); align-content: flex-end; }
     .tag { position: static; font-size: var(--v-t-sm); padding: .5em .7em .45em; }
   }
+  /* низкий экран телефона (панели браузера отнимают высоту): обложка и карточка заходили бы на текст – убираем украшения */
+  @media (max-width: 860px) and (max-height: 720px) {
+    .hero__mid, .hero__front, .hero__hint { display: none; }
+  }
   @media (min-width: 861px) and (max-height: 760px) {
     .hero__copy h1 { font-size: clamp(2rem, .9rem + 2.4vw, 3.1rem); }
     .hero__copy .v-lede { margin-top: var(--v-4); font-size: var(--v-t-base); }
@@ -220,11 +224,11 @@
     .plan { grid-template-columns: 1fr; grid-template-rows: auto minmax(0, 1fr); gap: var(--v-4); padding: 5rem var(--v-gutter) 1.5rem; align-items: start; }
     .plan__copy h2 { font-size: clamp(1.5rem, 1rem + 2.6vw, 2rem); }
     .plan__copy > p { display: none; }
-    .stages { margin-top: var(--v-4); }
-    .stages li { padding: var(--v-2) 0; grid-template-columns: 5.6rem 1fr; }
+    /* список этапов дублирует страницы тетради: на телефоне его место отдаём тетради, иначе на низких экранах она сжимается и строки наезжают */
+    .stages { display: none; }
     .plan__note { display: none; }
     /* на телефоне видна одна страница: разворот сдвинут так, что правая страница по центру, перевёрнутые листы уходят за край */
-    .nb { --pg: min(calc(100vw - 2 * var(--v-gutter) - 1rem), calc((100svh - 26.5rem) / 1.38), 20rem); --lh: 1.6rem; --pad: 1.1rem; margin: var(--v-3) 0 0 calc(50% - var(--pg) * 1.5); align-self: start; }
+    .nb { --pg: min(calc(100vw - 2 * var(--v-gutter) - 1rem), calc((100svh - 16rem) / 1.38), 20rem); --lh: 1.6rem; --pad: 1.1rem; margin: var(--v-3) 0 0 calc(50% - var(--pg) * 1.5); align-self: start; }
     /* на телефоне от перевёрнутых листов слева виден только край: текст оборота прячем, чтобы обрывки строк не наезжали на страницу */
     .leaf__back > * { visibility: hidden; }
   }
