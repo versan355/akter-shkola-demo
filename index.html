@@ -345,6 +345,8 @@
   .fin__inner h2 { font-size: clamp(2.2rem, 1rem + 3vw, 4.2rem); line-height: .98; }
   .fin__inner p { margin-top: var(--v-5); color: var(--v-ink-soft); max-width: 40ch; text-wrap: pretty; }
   .fin__btns { margin-top: var(--v-6); display: flex; flex-wrap: wrap; gap: var(--v-3); }
+  .fin__inner .fin__demo { margin-top: var(--v-6); padding: var(--v-3) var(--v-4); border-left: 3px solid var(--v-accent); background: var(--v-surface); color: var(--v-ink); font-size: var(--v-t-sm); max-width: 44ch; }
+  .fin__demo b { font-weight: 600; }
   .fin__meta { display: grid; gap: var(--v-3); color: var(--v-ink-soft); font-size: var(--v-t-sm); }
   .fin__tel { font-family: var(--v-font-display); font-weight: 600; font-size: var(--v-t-xl); text-decoration: none; color: var(--v-ink); display: inline-block; padding-block: .3em; margin-bottom: var(--v-1); }
   .fin__meta b { color: var(--v-ink); font-weight: 600; }
@@ -370,7 +372,7 @@
       <a href="#ceny">Цены</a>
       <a href="#prepod" data-long>Педагог</a>
     </nav>
-    <a class="v-btn" href="{{ссылка-записи}}" target="_blank" rel="noopener">Записаться на пробное</a>
+    <a class="v-btn" href="#zapis">Записаться на пробное</a>
   </header>
 
   <main>
@@ -410,7 +412,7 @@
           <h1 class="v-display v-display--xl" data-v-kinetic="lines">Актёрское мастерство и речь для взрослых – без страха сцены</h1>
           <p class="v-lede">Пробное занятие без выхода на сцену, программа на 8 недель по этапам и цена – всё известно до оплаты.</p>
           <div class="hero__cta">
-            <a class="v-btn" href="{{ссылка-записи}}" target="_blank" rel="noopener" data-v-magnet="0.2" data-v-rise="0">Записаться на пробное</a>
+            <a class="v-btn" href="#zapis" data-v-magnet="0.2" data-v-rise="0">Записаться на пробное</a>
             <p class="hero__hint">Сначала пробное, потом программа и цена – <b>и только тогда решение.</b></p>
           </div>
         </div>
@@ -578,7 +580,7 @@
               <span class="v-label">Занятие</span>
               <h2 class="v-display">90 минут по шагам</h2>
               <p>Каждое занятие идёт по одной схеме: вы знаете, что будет, и никто не вытаскивает на сцену без подготовки.</p>
-              <a class="v-btn" href="{{ссылка-записи}}" target="_blank" rel="noopener">Записаться на пробное</a>
+              <a class="v-btn" href="#zapis">Записаться на пробное</a>
             </div>
 
             <div class="card card--photo">
@@ -651,7 +653,7 @@
             <li><h3>Подготовка к выступлению</h3><span class="time">60 минут</span><span class="price v-nums">уточнить</span><p>Презентация, доклад, тост: репетируем ваш текст до уверенного звучания.</p></li>
           </ul>
           <div class="cta" data-v-in>
-            <a class="v-btn" href="{{ссылка-записи}}" target="_blank" rel="noopener">Записаться на пробное</a>
+            <a class="v-btn" href="#zapis">Записаться на пробное</a>
             <span>Напишите, зачем вам сцена или речь: предложим время на пробное на ближайшие дни.</span>
           </div>
         </div>
@@ -690,17 +692,14 @@
             <div data-v-cue="0.04">
               <h2 class="v-display">Начните с пробного занятия</h2>
               <p>Напишите, зачем вам сцена или речь: предложим время на ближайшие дни, проведём пробное и вернёмся с программой на 8 недель и ценой.</p>
-              <div class="fin__btns">
-                <a class="v-btn" href="{{ссылка-записи}}" target="_blank" rel="noopener">Записаться на пробное</a>
-                <a class="v-btn v-btn--ghost" href="tel:{{телефон}}">Позвонить</a>
-              </div>
+              <!-- демо: когда заказчик даст ссылку записи и телефон, вернуть кнопки «Записаться на пробное» ({{ссылка-записи}}) и «Позвонить» (tel:{{телефон}}) -->
+              <p class="fin__demo"><b>Демо-версия.</b> Здесь будет кнопка записи – в WhatsApp, Telegram или на форму, как вам удобнее, и кнопка «Позвонить».</p>
             </div>
             <div class="fin__meta" data-v-cue="0.1">
-              <a class="fin__tel" href="tel:{{телефон}}">{{телефон}}</a>
+              <span class="fin__tel">{{телефон}}</span>
               <span><b>Адрес</b> – {{адрес}}, {{город}}</span>
               <span>{{часы}}, по записи</span>
               <span>Отвечаем в мессенджере в рабочие часы</span>
-              <a href="{{ссылка-карты}}" target="_blank" rel="noopener">Как добраться: карточка на Яндекс.Картах</a>
             </div>
           </div>
           <footer class="foot">
@@ -723,6 +722,15 @@
     document.getElementById('zapis').setAttribute('data-v-span', '1.3');
   }
   Vibe.mount(document.querySelector('.v-page'));
+  // Демо: кнопки записи ведут к финалу. Реплика финала проявляется не в самом начале акта,
+  // поэтому прокручиваем чуть глубже начала секции, чтобы текст был виден сразу.
+  document.querySelectorAll('a[href="#zapis"]').forEach(function (a) {
+    a.addEventListener('click', function (e) {
+      e.preventDefault();
+      var s = document.getElementById('zapis');
+      window.scrollTo({ top: s.getBoundingClientRect().top + window.scrollY + (s.offsetHeight - window.innerHeight) * 0.6, behavior: 'instant' });
+    });
+  });
   // Фирменный ход «тетрадь, которую листаешь» живёт в CSS: каждый лист считает --f от --v-p акта
   // (переменная наследуется с секции) и поворачивается rotateY вокруг корешка. JS не нужен.
 </script>
